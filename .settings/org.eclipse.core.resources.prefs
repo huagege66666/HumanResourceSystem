@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//src/cn/edu/lingnan/action/DeptAdjustAction.java=UTF-8
+encoding//src/cn/edu/lingnan/action/EmpDeptJobAction.java=UTF-8
+encoding//src/cn/edu/lingnan/action/JobAdjustAction.java=UTF-8
+encoding//src/cn/edu/lingnan/action/TestInfoAction.java=UTF-8
+encoding//src/cn/edu/lingnan/action/TestManagerAction.java=UTF-8
+encoding//src/cn/edu/lingnan/service/DeptAdjustService.java=UTF-8
+encoding//src/cn/edu/lingnan/service/EmpDeptJobService.java=UTF-8
+encoding//src/cn/edu/lingnan/service/JobAdjustService.java=UTF-8
+encoding//src/cn/edu/lingnan/service/TestInfoService.java=UTF-8
+encoding//src/cn/edu/lingnan/service/impl/DeptAdjustServiceImpl.java=UTF-8
+encoding//src/cn/edu/lingnan/service/impl/EmpDeptJobServiceImpl.java=UTF-8
+encoding//src/cn/edu/lingnan/service/impl/JobAdjustServiceImpl.java=UTF-8
+encoding//src/cn/edu/lingnan/service/impl/TestInfoServiceImpl.java=UTF-8
+encoding//src/cn/edu/lingnan/utils/DateConverter.java=UTF-8
+encoding/src=GBK

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+    <constant name="struts.ui.theme" value="simple"></constant>
+    <package name="my_pack" extends="struts-default">
+    
+    	<interceptors>
+    		<interceptor name="authoryInterceptor" class="cn.edu.lingnan.interceptor.AuthorInterceptor"></interceptor>
+    		<interceptor-stack name="authroyInterceptorStack">
+    			<interceptor-ref name="authoryInterceptor"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	
+    	<!-- 显示员工部门岗位信息 -->
+		<action name="queryallemp" class="cn.edu.lingnan.action.EmpDeptJobAction" method="getAllEmpDeptJob">
+			<result name="success">/newemplist.jsp</result>
+			<result name="input">/error.jsp</result>
+			 <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+        <action name="queryallemp_old" class="cn.edu.lingnan.action.EmpAction" method="queryAllByPage">
+            <result name="success">/newemplist.jsp</result>
+            <result name="input" type="chain">queryallemp</result>
+		    <result name="error" type="chain">queryallemp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+        </action>
+        <action name="tohumanres" class="cn.edu.lingnan.action.HumanresAction" method="toHumanresDetial">
+            <result name="success">/humres.jsp</result>
+            <result name="users">/login.jsp</result>
+            <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+        </action>
+        <action name="tologin" class="cn.edu.lingnan.action.LoginAction" method="login">
+			<result name="adminuser" type="redirect">queryallemp</result>
+			<result name="user">/empinfo.jsp</result>
+			<result name="error">/login.jsp</result>
+			<result name="input">/login.jsp</result>
+		</action>
+		<action name="logout" class="cn.edu.lingnan.action.LoginAction" method="logout">
+		    <result name="success">/login.jsp</result>
+		</action>
+		<action name="changepassword" class="cn.edu.lingnan.action.LoginAction" method="alterPasswordSubmit">
+		    <result name="success">/changepassword.jsp</result>
+		    <result name="error">/changepassword.jsp</result>
+		    <result name="input">/changepassword.jsp</result>
+		</action>
+		<action name="tohireemp" class="cn.edu.lingnan.action.EmpAction" method="toHireEmp">
+		    <result name="success" type="chain">queryallemp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="hireemp" class="cn.edu.lingnan.action.EmpAction" method="hireEmp">
+		    <result name="success" type="redirect">queryallemp</result>
+		    <result name="input" type="chain">queryallemp</result>
+		    <result name="error" type="chain">queryallemp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="tofireemp" class="cn.edu.lingnan.action.EmpAction" method="toFireEmp">
+		    <result name="success">/leavejob.jsp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="fireemp" class="cn.edu.lingnan.action.EmpAction" method="fireEmp">
+		    <result name="success" type="redirect">queryallemp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="tosingeinfo" class="cn.edu.lingnan.action.EmpAction" method="singEmpInfo">
+		    <result name="success">/empinfo.jsp</result>
+		</action>
+		<action name="tohumanlist" class="cn.edu.lingnan.action.HumanresAction" method="toHumanList">
+		    <result name="success">/humreslist.jsp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="alterempinfo" class="cn.edu.lingnan.action.EmpAction" method="alterEmpInfo">
+		    <result name="success" type="redirect">tosingeinfo?empid=${example.empid}</result>
+		</action>
+		<action name="queryleaveinfo" class="cn.edu.lingnan.action.EmpAction" method="queryLeavejobByEmpid">
+		    <result name="success">/leavejobinfo.jsp</result>
+		    <result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		
+		<!-- 陈喜华 -->
+		<!-- 分页查找所有部门 -->
+		<action name="loadAllDeptByPage" class="cn.edu.lingnan.action.DeptAction" method="loadAllDeptByPage">
+			<result>/deptList.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!--  删除部门   -->
+		<action name="deleteDeptById" class="cn.edu.lingnan.action.DeptAction" method="deleteDeptById">
+			<result name="success" type="redirect">loadAllDeptByPage.action</result>
+			<result name="error" type="chain">loadAllDeptByPage</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 点击更新部门按钮 -->
+		<action name="updateDeptById" class="cn.edu.lingnan.action.DeptAction" method="updateDeptById">
+			<result>/updatedept.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 提交更新部门按钮 -->
+		<action name="updateDeptSubmit" class="cn.edu.lingnan.action.DeptAction" method="updateDeptSubmit">
+			<result name="success" type="redirect">loadAllDeptByPage.action</result>
+			<result name="error" type="chain">loadAllDeptByPage</result>
+			<result name="input">/updatedept.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 添加部门 -->
+		<action name="addDept" class="cn.edu.lingnan.action.DeptAction" method="addDept">
+			<result name="success" type="redirect">loadAllDeptByPage.action</result>
+			<result name="input">/deptList.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		
+		<!-- 马立志 -->
+		<!-- 显示员工部门岗位信息 -->
+		<action name="empDeptJobInfo" class="cn.edu.lingnan.action.EmpAction" method="queryAllByPage">
+			<result name="success">/empDeptJobInfo.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 员工信息页面点击调动按钮 根据id找出某个员工信息-->
+		<action name="AdjustEmpDeptJob" class="cn.edu.lingnan.action.EmpDeptJobAction" method="AdjustEmpDeptJob">
+			<result name="success">/empAdjustDeptJob.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 员工部门调动  -->
+		<action name="deptAdjust" class="cn.edu.lingnan.action.DeptAdjustAction" method="deptAdjust">
+			<result name="success" type="redirect">queryallemp?toid=${toid}<![CDATA[&]]>pageNo1=${pageNo1}</result>
+			<result name="input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		
+		<!-- 岗位调动 -->
+		<action name="adjustEmpJob" class="cn.edu.lingnan.action.JobAdjustAction" method="adjustEmpJob">
+			<result name="success" type="redirect">queryallemp?toid=${toid}<![CDATA[&]]>pageNo1=${pageNo1}</result>
+			<result name="input">/error.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="getDeptadjustByPager" class="cn.edu.lingnan.action.DeptAdjustAction" method="getDeptadjustByPager">
+			<result name="success">/deptAdjustList.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="getJobadjustByPager" class="cn.edu.lingnan.action.JobAdjustAction" method="getJobadjustByPager">
+			<result name="success">/jobAdjustList.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="getalladjustinfo" class="cn.edu.lingnan.action.DeptadjustExtendAction" method="getAllAdjustInfo">
+			<result name="success">/adjustInfo.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		
+		<!-- 分页可带条件查询员工试用信息 -->
+		<action name="getAllTestInfoByPage" class="cn.edu.lingnan.action.TestInfoAction" method="getAllTestInfoByPage">
+			<result name="success">/testInfoList.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 管理试用员工,转正,延期,不录用 -->
+		<action name="toManagerTestInfo" class="cn.edu.lingnan.action.TestManagerAction" method="toManagerTestInfo">
+			<result name="success">/message.jsp</result>
+			<result name="input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		
+		
+		<!-- 钟善裕 -->
+		<!-- 查询所有岗位 -->
+		<action name="showAllJob" class="cn.edu.lingnan.action.JobAction" method="loadJob">
+			<result>/joblist.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 增加岗位 -->	
+		<action name="addjob" class="cn.edu.lingnan.action.JobAction" method="addJob">
+			<result name= "success" type="redirectAction">showAllJob.action</result>
+			<result name="input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 更新岗位 -->
+		<action name="updatejob" class="cn.edu.lingnan.action.JobAction" method="findJobById">
+			<result>/updateJob.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<action name="toupdatejob" class="cn.edu.lingnan.action.JobAction" method="updateJob">
+			<result name="success" type = "redirectAction">showAllJob.action</result>
+			<result name= "error">/error.jsp</result>
+			<result name = "input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+		<!-- 删除岗位 -->
+		<action name="deletejob" class="cn.edu.lingnan.action.JobAction" method="deleteJob">
+			<result name="success" type = "redirectAction">showAllJob.action</result>
+			<result name= "error" type="chain">showAllJob</result>
+			<result name = "input">/error.jsp</result>
+			<result name="users">/login.jsp</result>
+		    <interceptor-ref name="authroyInterceptorStack"></interceptor-ref>
+		</action>
+    </package>
+</struts>    
